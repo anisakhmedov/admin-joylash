@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: "Inter", sans-serif;
+    outline: none;
+    text-decoration: none;
+}
+
+body {
+    background-color: #fffbe8;
+    &::-webkit-scrollbar {
+        width: 7px; /* ширина scrollbar */
+    }
+    &::-webkit-scrollbar-track {
+        background: #ffa600; /* цвет дорожки */
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #fffbe8; /* цвет плашки */
+        border-radius: 20px; /* закругления плашки */
+    }
+}
+
+._margin{
+    height: 70px;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+#register{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        button, input{
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+        input{
+            background-color: transparent;
+            border: 1px solid grey;
+        }
+        button{
+            border: none;
+            background-color: #ffa600;
+            color: white;
+            font-weight: 600;
+        }
+        label{
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-top: -5px;
+        }
+    }
+}
+
+#mainPage{
+    .container{
+        table{
+            border-spacing: 0;
+            width: 100%;
+            th{
+                border: 1px solid #252525;
+                padding: 5px 0;
+            }
+        }
+    }
+}
+
+#Header{
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    left: 0;
+    right: 0;
+    background-color: #ffa600;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    h1{
+        color: white;
+    }
+    ul{
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        li{
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 7px;
+            transition: .3s ease;
+            &:hover{
+                background-color: #ffffff;
+                a{
+                    color: black;
+                }
+            }
+            &.active{
+                background-color: #ffffff;
+                a{
+                    color: black;
+                }
+            }
+            a{
+                transition: .3s ease;
+                color: white;
+            }
+        }
+    }
+}
