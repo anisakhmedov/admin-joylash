@@ -51,34 +51,32 @@
 
             </div>
             <div id="checkNew" v-else-if="swithWindow === 'checkNew'">
-                <!-- <table>
-                    <thead>
-
-                        <tr>
-                            <th>
-                                №
-                            </th>
-                            <th>
-                                Имя
-                            </th>
-                            <th>
-                                Номер телефона
-                            </th>
-                            <th>
-                                Почта
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item of houses" :key="item._id">
-                            <th>{{ item.index }}</th>
-                            <th>{{ item.name ? item.name : 'Нету данных' }}</th>
-                            <th>{{ item.phone.length >= 3 ? item.phone : 'Нету данных' }}</th>
-                            <th>{{ item.email }}</th>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="_margin"></div> -->
+                <div class="wrapper">
+                    <div class="item">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Название</th>
+                                    <th>Открыть</th>
+                                    <th>Показывать</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item of houses" :key="item">
+                                    <th>{{ item.index }}</th>
+                                    <th>{{ item.title }}</th>
+                                    <th style="cursor: pointer;" @click="openWindow(item)">
+                                        Отркыть
+                                    </th>
+                                    <th><input type="checkbox" @change="changeStatus(item)" v-model="item.isModerate">
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="_margin"></div>
             </div>
             <div id="AllHouses" v-else-if="swithWindow === 'allHouses'">
                 <table>
@@ -95,7 +93,7 @@
                                 Цена
                             </th>
                             <th>
-                                Почта
+                                Товар
                             </th>
                         </tr>
                     </thead>
@@ -104,11 +102,13 @@
                             <th>{{ item.index }}</th>
                             <th>{{ item.title }}</th>
                             <th>
-                                <NuxtLink :to="'/userCreated/' + item.userCreated">{{ item.linkUser }}</NuxtLink>
+                                ${{ item.price }}
+                            </th>
+                            <th>
+                                <NuxtLink :to="'/houses/' + item._id">Перейти</NuxtLink>
                             </th>
                             <!-- <th>{{ item.name ? item.name : 'Нету данных' }}</th> -->
                             <!-- <th>{{ item.phone.length >= 3 ? item.phone : 'Нету данных' }}</th> -->
-                            <th>{{ item.email }}</th>
                         </tr>
                     </tbody>
                 </table>
@@ -120,6 +120,9 @@
                 </h1>
             </div>
         </main>
+        <div v-show="isActive" class="modalWindowProd">
+
+        </div>
     </div>
 </template>
 
@@ -129,35 +132,58 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            swithWindow: 'allHouses',
+            swithWindow: 'checkNew',
             users: [],
-            houses: []
+            houses: [],
+            isActive: false
         }
     },
     async mounted() {
-        await axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy')
+        await axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy')
             .then((res) => {
                 this.users = res.data.body
                 for (let item of this.users) {
                     item.index = this.users.indexOf(item) + 1
+
                 }
             })
-        await axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+        await axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/houses')
             .then((res) => {
                 this.houses = res.data.body
                 for (let item of this.houses) {
                     item.index = this.houses.indexOf(item) + 1
-                    for(let user of this.users){
-                        if(item.userCreated == user._id){
+                    for (let user of this.users) {
+                        if (item.userCreated == user._id) {
                             item.linkUser = user.name
                         }
+
                     }
                 }
-
-
-                console.log(this.houses);
-
             })
+    },
+    methods: {
+        openWindow(param) {
+            console.log(param);
+            console.log(this.isActive);
+            console.log(event.target.parentNode.lastChild.querySelector('input').value);
+
+        },
+        changeStatus(param) {
+            let obj = param
+            if (event.target.checked === true) {
+                obj.isModerate = true
+            } else {
+                obj.isModerate = false
+            }
+
+            axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/houses/' + param._id, { isModerate: obj.isModerate })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
     }
 }
 </script>

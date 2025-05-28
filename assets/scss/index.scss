@@ -24,42 +24,43 @@ body {
     }
 }
 
-._margin{
+._margin {
     height: 70px;
 }
 
-.container{
+.container {
     width: 80%;
     margin: 0 auto;
 }
 
-#register{
+#register {
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    form{
+    form {
         display: flex;
         flex-direction: column;
         gap: 5px;
-        button, input{
+        button,
+        input {
             cursor: pointer;
             padding: 10px;
             border-radius: 10px;
             font-size: 18px;
         }
-        input{
+        input {
             background-color: transparent;
             border: 1px solid grey;
         }
-        button{
+        button {
             border: none;
             background-color: #ffa600;
             color: white;
             font-weight: 600;
         }
-        label{
+        label {
             color: red;
             font-size: 14px;
             display: none;
@@ -68,12 +69,12 @@ body {
     }
 }
 
-#mainPage{
-    .container{
-        table{
+#mainPage {
+    .container {
+        table {
             border-spacing: 0;
             width: 100%;
-            th{
+            th {
                 border: 1px solid #252525;
                 padding: 5px 0;
             }
@@ -81,7 +82,7 @@ body {
     }
 }
 
-#Header{
+#Header {
     position: absolute;
     top: 0;
     padding: 10px;
@@ -91,32 +92,30 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    h1{
+    h1 {
         color: white;
     }
-    ul{
+    ul {
         width: 100%;
         justify-content: space-between;
         display: flex;
-        li{
+        li {
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 7px;
-            transition: .3s ease;
-            &:hover{
+            transition: 0.3s ease;
+            width: fit-content;
+            color: white;
+            &:hover {
                 background-color: #ffffff;
-                a{
-                    color: black;
-                }
+                color: black;
             }
-            &.active{
+            &.active {
                 background-color: #ffffff;
-                a{
-                    color: black;
-                }
+                color: black;
             }
-            a{
-                transition: .3s ease;
+            a {
+                transition: 0.3s ease;
                 color: white;
             }
         }

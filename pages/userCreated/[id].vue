@@ -38,22 +38,17 @@ export default {
             this.linkUser = window.location.pathname.split('userCreated/')[1]
         }
 
-        await axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + this.linkUser)
+        await axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + this.linkUser)
             .then((res) => {
                 this.user = res.data.data
                 console.log(this.user);
             })
 
-        await axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+        await axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/houses')
             .then((res) => {
                 this.houses = res.data.body
                 for (let item of this.houses) {
                     item.index = this.houses.indexOf(item) + 1
-                    // for (let user of this.users) {
-                    //     if (item.userCreated == user._id) {
-                    //         item.linkUser = user.name
-                    //     }
-                    // }
                 }
 
 
