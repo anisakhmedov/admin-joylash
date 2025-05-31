@@ -12,9 +12,6 @@
                 <li @click="swithWindow = 'users'">
                     Пользователи
                 </li>
-                <li>
-                    <!-- {{ route }} -->
-                </li>
             </ul>
         </header>
         <div class="_margin"></div>
@@ -95,6 +92,9 @@
                             <th>
                                 Товар
                             </th>
+                            <th>
+                                Удалить
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,6 +106,9 @@
                             </th>
                             <th>
                                 <NuxtLink :to="'/houses/' + item._id">Перейти</NuxtLink>
+                            </th>
+                            <th>
+                                <p style="cursor: pointer;" @click="removeItem(item._id)">Удалить</p>
                             </th>
                             <!-- <th>{{ item.name ? item.name : 'Нету данных' }}</th> -->
                             <!-- <th>{{ item.phone.length >= 3 ? item.phone : 'Нету данных' }}</th> -->
@@ -132,7 +135,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            swithWindow: 'checkNew',
+            swithWindow: 'allHouses',
             users: [],
             houses: [],
             isActive: false
@@ -162,6 +165,18 @@ export default {
             })
     },
     methods: {
+        removeItem(param) {
+            console.log(param);
+            axios.delete('https://joylash-uz-4a09707016fe.herokuapp.com/houses/' + param)
+                .then((res) => {
+                    if (process.client) {
+                        window.location.reload()
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
         openWindow(param) {
             console.log(param);
             console.log(this.isActive);
@@ -170,13 +185,21 @@ export default {
         },
         changeStatus(param) {
             let obj = param
+
+            let fm = new FormData()
             if (event.target.checked === true) {
                 obj.isModerate = true
             } else {
                 obj.isModerate = false
             }
+            fm.append('isModerate', obj.isModerate)
 
-            axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/houses/' + param._id, { isModerate: obj.isModerate })
+            fm.forEach((val, key) => {
+                console.log({ [key]: val });
+
+            })
+
+            axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/houses/' + param._id, { "isModerate": obj.isModerate })
                 .then((res) => {
                     console.log(res);
                 })
