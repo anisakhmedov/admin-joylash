@@ -33,6 +33,9 @@
                             <th>
                                 Почта
                             </th>
+                            <th>
+                                Удалить
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +44,7 @@
                             <th>{{ item.name ? item.name : 'Нету данных' }}</th>
                             <th>{{ item.phone.length >= 3 ? item.phone : 'Нету данных' }}</th>
                             <th>{{ item.email }}</th>
+                            <th style="cursor: pointer;" @click="deleteUser(item._id)">Удалить</th>
                         </tr>
                     </tbody>
                 </table>
@@ -168,6 +172,17 @@ export default {
         removeItem(param) {
             console.log(param);
             axios.delete('https://joylash-uz-4a09707016fe.herokuapp.com/houses/' + param)
+                .then((res) => {
+                    if (process.client) {
+                        window.location.reload()
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        deleteUser(param) {
+            axios.delete('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + param)
                 .then((res) => {
                     if (process.client) {
                         window.location.reload()

@@ -14,7 +14,7 @@ export default {
   },
   mounted() {
     this.showHeader = this.$route.name === 'register'
-    if (localStorage.enter === '') {
+    if (!localStorage.enter) {
       this.$router.push('/register')
     } 
   }
