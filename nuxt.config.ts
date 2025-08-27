@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/axios.ts'],
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:6000/',
+      apiBase: 'http://localhost:7000/',
     }
   }
 })
